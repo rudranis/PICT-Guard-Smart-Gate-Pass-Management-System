@@ -48,6 +48,7 @@ export default function GuardScanner() {
       stopQRScan();
     }
     return () => stopQRScan();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scanMode, cameraActive, validationResult]);
 
   const startQRScan = () => {
@@ -149,6 +150,7 @@ export default function GuardScanner() {
     } catch (err) {
       console.error('Scan error:', err);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
   const validateToken = async (tokenValue) => {

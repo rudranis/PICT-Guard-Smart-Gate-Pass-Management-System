@@ -22,9 +22,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          {<Route path="/user/login" element={<UserLogin />} />}
+          <Route path="/user/login" element={<UserLogin />} />
           <Route path="/user/portal" element={<UserPortal />} />
-          {<Route path="/guard/login" element={<GuardLogin />} />}
+          <Route path="/guard/login" element={<GuardLogin />} />
           <Route path="/guard/scanner" element={<GuardScanner />} />
           <Route path="/visitor/register" element={<VisitorRegistration />} />
           <Route path="/alumni/register" element={<AlumniRegistration />} />

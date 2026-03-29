@@ -1490,57 +1490,7 @@ async def get_dashboard_stats():
         "total_registered_visitors": total_registered_visitors
     }
 
-# ============ DIAGNOSTIC ENDPOINTS ============
 
-@api_router.get("/health/email")
-async def check_email_health():
-    """Check Gmail SMTP connectivity and configuration"""
-    diagnostics = {
-        "service": "Gmail SMTP",
-        "status": "unknown",
-        "server": GMAIL_SMTP_SERVER,
-        "port": GMAIL_SMTP_PORT,
-        "sender_email": SENDER_EMAIL,
-        "issues": []
-    }
-    
-    # Check environment variables
-    if not SENDER_EMAIL:
-        diagnostics["issues"].append("❌ SENDER_EMAIL not configured in .env")
-    
-    if not GMAIL_PASSWORD:
-        diagnostics["issues"].append("❌ GMAIL_PASSWORD not configured in .env")
-        diagnostics["status"] = "failed"
-        return diagnostics
-    
-    # Try to connect to Gmail SMTP
-    def test_gmail_connection():
-        try:
-            with smtplib.SMTP(GMAIL_SMTP_SERVER, GMAIL_SMTP_PORT, timeout=5) as server:
-                server.starttls()
-                server.login(SENDER_EMAIL, GMAIL_PASSWORD)
-                return True, None
-        except smtplib.SMTPAuthenticationError as e:
-            return False, f"Authentication failed: {str(e)}"
-        except TimeoutError:
-            return False, f"Connection timeout: Could not reach {GMAIL_SMTP_SERVER}:{GMAIL_SMTP_PORT}"
-        except OSError as e:
-            return False, f"Network error: {str(e)}"
-        except Exception as e:
-            return False, f"Unexpected error: {str(e)}"
-    
-    try:
-        success, error = await asyncio.to_thread(test_gmail_connection)
-        if success:
-            diagnostics["status"] = "✅ OK - Gmail SMTP working"
-        else:
-            diagnostics["status"] = "❌ FAILED"
-            diagnostics["issues"].append(error)
-    except Exception as e:
-        diagnostics["status"] = "❌ FAILED"
-        diagnostics["issues"].append(f"Test error: {str(e)}")
-    
-    return diagnostics
 
 # Include router
 app.include_router(api_router)

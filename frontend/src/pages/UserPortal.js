@@ -55,6 +55,7 @@ export default function UserPortal() {
   const [resendingEmail, setResendingEmail] = useState(null);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return; // Check for browser environment
     const data = localStorage.getItem("user_data");
     if (!data) {
       navigate("/user/login");
@@ -65,26 +66,32 @@ export default function UserPortal() {
     
     // Fetch visitors and alumni meeting this user
     fetchMeetings(parsedData);
-  }, []);
+  }, [navigate]);
 
   const fetchMeetings = async (userData) => {
     try {
       setLoadingMeetings(true);
       const personId = userData.data.reg_no || userData.data.faculty_id;
-      console.log("Fetching meetings for person ID:", personId);
+      if (process.env.NODE_ENV === 'development') {
+        console.log("Fetching meetings for person ID:", personId);
+      }
       
       // Fetch visitors
       const visitorsResponse = await axios.get(
         `${BACKEND_URL}/api/visitors/meeting/${personId}`
       );
-      console.log("Visitors response:", visitorsResponse.data);
+      if (process.env.NODE_ENV === 'development') {
+        console.log("Visitors response:", visitorsResponse.data);
+      }
       setVisitors(visitorsResponse.data || []);
       
       // Fetch alumni
       const alumniResponse = await axios.get(
         `${BACKEND_URL}/api/alumni/meeting/${personId}`
       );
-      console.log("Alumni response:", alumniResponse.data);
+      if (process.env.NODE_ENV === 'development') {
+        console.log("Alumni response:", alumniResponse.data);
+      }
       setAlumni(alumniResponse.data || []);
     } catch (error) {
       console.error("Error fetching meetings:", error);

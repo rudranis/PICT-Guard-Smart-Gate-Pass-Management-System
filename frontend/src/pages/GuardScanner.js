@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Webcam from 'react-webcam';
+import jsQR from 'jsqr';
 import { ShieldCheck, LogOut, ScanLine, CheckCircle, XCircle, RefreshCw, Camera, CameraOff, Keyboard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -33,10 +34,11 @@ export default function GuardScanner() {
   }, [autoRefreshCountdown]);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return; // Check for browser environment
     const data = localStorage.getItem('guard_data');
     if (!data) { navigate('/guard/login'); return; }
     setGuardData(JSON.parse(data));
-  }, []);
+  }, [navigate]);
 
   // Start camera scanning
   useEffect(() => {
@@ -72,42 +74,44 @@ export default function GuardScanner() {
       if (!imageSrc) return;
 
       // Try jsQR first (more reliable)
-      if (window.jsQR) {
-        try {
-          const canvas = document.createElement('canvas');
-          const img = new Image();
-          img.crossOrigin = 'anonymous';
-          img.src = imageSrc;
-          
-          await new Promise((res, rej) => {
-            img.onload = res;
-            img.onerror = rej;
-            setTimeout(rej, 5000); // 5s timeout
-          });
-          
-          canvas.width = img.width;
-          canvas.height = img.height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0);
-          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          const code = window.jsQR(imageData.data, imageData.width, imageData.height, { 
-            inversionAttempts: 'dontInvert' 
-          });
-          
-          if (code && code.data && code.data !== lastScannedRef.current) {
+      try {
+        const canvas = document.createElement('canvas');
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.src = imageSrc;
+        
+        await new Promise((res, rej) => {
+          img.onload = res;
+          img.onerror = rej;
+          setTimeout(rej, 5000); // 5s timeout
+        });
+        
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const code = jsQR(imageData.data, imageData.width, imageData.height, { 
+          inversionAttempts: 'dontInvert' 
+        });
+        
+        if (code && code.data && code.data !== lastScannedRef.current) {
+          if (process.env.NODE_ENV === 'development') {
             console.log('✅ QR detected via jsQR:', code.data);
-            lastScannedRef.current = code.data;
-            stopQRScan();
-            await validateToken(code.data);
-            return;
           }
-        } catch (err) {
+          lastScannedRef.current = code.data;
+          stopQRScan();
+          await validateToken(code.data);
+          return;
+        }
+      } catch (err) {
+        if (process.env.NODE_ENV === 'development') {
           console.log('jsQR scan attempt failed:', err.message);
         }
       }
 
       // Fallback to BarcodeDetector (Chrome 83+)
-      if ('BarcodeDetector' in window && !window.jsQR) {
+      if ('BarcodeDetector' in window) {
         try {
           const barcodeDetector = new window.BarcodeDetector({ formats: ['qr_code'] });
           const img = new Image();
@@ -127,7 +131,9 @@ export default function GuardScanner() {
           if (barcodes.length > 0) {
             const qrValue = barcodes[0].rawValue;
             if (qrValue && qrValue !== lastScannedRef.current) {
-              console.log('✅ QR detected via BarcodeDetector:', qrValue);
+              if (process.env.NODE_ENV === 'development') {
+                console.log('✅ QR detected via BarcodeDetector:', qrValue);
+              }
               lastScannedRef.current = qrValue;
               stopQRScan();
               await validateToken(qrValue);
@@ -135,7 +141,9 @@ export default function GuardScanner() {
             }
           }
         } catch (err) {
-          console.log('BarcodeDetector scan attempt failed:', err.message);
+          if (process.env.NODE_ENV === 'development') {
+            console.log('BarcodeDetector scan attempt failed:', err.message);
+          }
         }
       }
     } catch (err) {
@@ -145,20 +153,28 @@ export default function GuardScanner() {
 
   const validateToken = async (tokenValue) => {
     if (!tokenValue.trim()) {
-      console.warn('⚠️ Empty token');
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('⚠️ Empty token');
+      }
       return;
     }
     
-    console.log('🔍 Validating token:', tokenValue);
+    if (process.env.NODE_ENV === 'development') {
+      console.log('🔍 Validating token:', tokenValue);
+    }
     setLoading(true);
     setValidationResult(null);
     
     try {
       const fullUrl = `${BACKEND_URL}/api/validate-qr`;
-      console.log('📡 API call to:', fullUrl);
+      if (process.env.NODE_ENV === 'development') {
+        console.log('📡 API call to:', fullUrl);
+      }
       
       const response = await axios.post(fullUrl, { token: tokenValue.trim() });
-      console.log('✅ Validation response:', response.data);
+      if (process.env.NODE_ENV === 'development') {
+        console.log('✅ Validation response:', response.data);
+      }
       
       setValidationResult(response.data);
       setAutoRefreshCountdown(2);
@@ -606,9 +622,6 @@ export default function GuardScanner() {
           </ul>
         </div>
       </div>
-
-      {/* jsQR fallback script */}
-      <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js" />
 
       <style>{`
         @keyframes scan {

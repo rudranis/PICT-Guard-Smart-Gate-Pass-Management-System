@@ -51,6 +51,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return; // Check for browser environment
     const token = localStorage.getItem("admin_token");
     if (!token) {
       navigate("/admin/login");
@@ -340,7 +341,9 @@ function StudentsTab({ students, fetchStudents }) {
       if (response.data.error_count > 0) {
         const errorMsg = `❌ ${response.data.error_count} errors occurred:\n${response.data.error_details.slice(0, 3).join("\n")}${response.data.error_details.length > 3 ? "\n..." : ""}`;
         toast.error(errorMsg, { duration: 3000 });
-        console.log("All errors:", response.data.error_details);
+        if (process.env.NODE_ENV === 'development') {
+          console.log("All errors:", response.data.error_details);
+        }
       }
       fetchStudents();
       setBulkFile(null);
@@ -949,7 +952,9 @@ function FacultyTab({ faculty, fetchFaculty }) {
       if (response.data.error_count > 0) {
         const errorMsg = `❌ ${response.data.error_count} errors occurred:\n${response.data.error_details.slice(0, 3).join("\n")}${response.data.error_details.length > 3 ? "\n..." : ""}`;
         toast.error(errorMsg, { duration: 3000 });
-        console.log("All errors:", response.data.error_details);
+        if (process.env.NODE_ENV === 'development') {
+          console.log("All errors:", response.data.error_details);
+        }
       }
       fetchFaculty();
       setBulkFile(null);
@@ -1388,7 +1393,9 @@ function EventsTab({ events, fetchEvents, students }) {
         const errorDisplay = response.data.error_details.slice(0, 3).join("\n");
         const moreErrors = response.data.error_count > 3 ? `\n...and ${response.data.error_count - 3} more` : "";
         toast.error(`❌ ${response.data.error_count} errors occurred:\n${errorDisplay}${moreErrors}`, { duration: 3000 });
-        console.log("All Event Student Upload Errors:", response.data.error_details);
+        if (process.env.NODE_ENV === 'development') {
+          console.log("All Event Student Upload Errors:", response.data.error_details);
+        }
       }
       
       fetchEventStudents(selectedEvent.event_id);

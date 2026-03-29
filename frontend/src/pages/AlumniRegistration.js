@@ -50,7 +50,7 @@ export default function AlumniRegistration() {
   const [isSearching, setIsSearching] = useState(false);
   const [selectedPerson, setSelectedPerson] = useState(null);
 
-  const degreeOptions = ["BE", "BTech", "MTech", "PhD", "PhDM"];
+  const degreeOptions = ["BE", "BTech", "ME","MTech", "PhD", "PhDM"];
   const branchOptions = [
     "Computer Engineering",
     "Information Technology",

@@ -1,0 +1,109 @@
+# =========================
+# OS & System files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# Environment variables
+# =========================
+.env
+backend/.env
+frontend/.env
+
+# Allow example files (needed for setup)
+!.env.example
+!backend/.env.example
+!frontend/.env.example
+
+node_modules/
+# =========================
+# Python (Backend)
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.sqlite3
+
+# Virtual environments
+env/
+venv/
+.venv/
+backend/venv/
+
+# Python build
+build/
+dist/
+*.egg-info/
+
+# =========================
+# Node / React (Frontend)
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-lock.yaml
+
+# Yarn Berry
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+.pnp.*
+.pnp.js
+
+# =========================
+# Build outputs
+# =========================
+frontend/build/
+frontend/dist/
+frontend/.next/
+frontend/out/
+frontend/node_modules/
+
+# General
+build/
+dist/
+
+# =========================
+# Testing / Coverage
+# =========================
+coverage/
+test_reports/
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+
+# =========================
+# Misc project-specific
+# =========================
+memory/
+sample_excel_files/
+
+# =========================
+# Typescript / Next.js
+# =========================
+*.tsbuildinfo
+next-env.d.ts
+
+# =========================
+# Lock files (optional)
+# =========================
+# Uncomment if you want reproducible installs
+# package-lock.json
+# yarn.lock

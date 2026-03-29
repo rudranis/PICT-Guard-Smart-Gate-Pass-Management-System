@@ -1,0 +1,157 @@
+{
+  "brand_identity": {
+    "name": "PICT Guard",
+    "archetype": "Swiss & High-Contrast (Authority) mixed with Organic Trust",
+    "emotional_tone": "Secure, Efficient, Institutional, Transparent",
+    "visual_motif": "Grid Borders, Clean Glass, and Tactical Precision"
+  },
+  "typography": {
+    "fonts": {
+      "headings": {
+        "family": "Manrope, sans-serif",
+        "weights": ["600", "700", "800"],
+        "usage": "All page titles, card headers, and modal titles. Use tracking-tight (-0.02em) for sizes above 24px."
+      },
+      "body": {
+        "family": "Public Sans, sans-serif",
+        "weights": ["400", "500"],
+        "usage": "General content, form labels, data tables. Optimized for screen readability."
+      },
+      "mono": {
+        "family": "JetBrains Mono, monospace",
+        "weights": ["500"],
+        "usage": "ID numbers, timestamps, QR code text values."
+      }
+    },
+    "scale": {
+      "h1": "text-4xl md:text-5xl font-bold tracking-tight text-slate-900",
+      "h2": "text-2xl md:text-3xl font-bold tracking-tight text-slate-900",
+      "h3": "text-xl font-semibold tracking-tight text-slate-800",
+      "body_lg": "text-lg leading-relaxed text-slate-600",
+      "body_base": "text-base leading-relaxed text-slate-600",
+      "caption": "text-sm font-medium text-slate-500 uppercase tracking-wider"
+    }
+  },
+  "colors": {
+    "palette": {
+      "primary": {
+        "DEFAULT": "#0F172A",
+        "foreground": "#F8FAFC",
+        "description": "Deep Navy / Slate 900. Used for main buttons, headers, and active states."
+      },
+      "secondary": {
+        "DEFAULT": "#F1F5F9",
+        "foreground": "#0F172A",
+        "description": "Slate 100. Used for secondary buttons and card backgrounds."
+      },
+      "accent": {
+        "DEFAULT": "#0EA5E9",
+        "foreground": "#FFFFFF",
+        "description": "Sky 500. Used for active links, highlights, and focus rings."
+      },
+      "background": "#F8FAFC",
+      "surface": "#FFFFFF",
+      "border": "#E2E8F0",
+      "success": "#10B981",
+      "error": "#EF4444",
+      "warning": "#F59E0B"
+    },
+    "gradients": {
+      "corporate_blue": "bg-gradient-to-br from-slate-900 to-slate-800",
+      "id_card_shimmer": "bg-gradient-to-tr from-slate-50 via-white to-blue-50",
+      "valid_scan": "bg-gradient-to-b from-emerald-50 to-emerald-100",
+      "invalid_scan": "bg-gradient-to-b from-rose-50 to-rose-100"
+    }
+  },
+  "layout_strategies": {
+    "admin_dashboard": {
+      "grid_type": "MODE B: High Density Grid",
+      "structure": "Sidebar (fixed 250px) + Main Content (flex-1). Main content uses a grid of 'Grid Border' cards.",
+      "spacing": "Dense. p-4 or p-6. Gap-4.",
+      "visuals": "White cards with 1px slate-200 borders. No shadows (flat style)."
+    },
+    "visitor_kiosk": {
+      "grid_type": "MODE A: The Tetris Grid",
+      "structure": "Centered single-column flow with maximum width of 600px. Large touch targets.",
+      "spacing": "Generous. p-8 or p-12. Gap-8.",
+      "visuals": "Floating 'Glass' container on a blurred campus background."
+    },
+    "id_card_portal": {
+      "structure": "Mobile-first vertical stack. The ID Card is the 'Hero' element.",
+      "visuals": "Card should look physical—rounded-xl, slight drop-shadow-lg, inner-border."
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-slate-900 text-white hover:bg-slate-800 rounded-md shadow-sm h-10 px-4 py-2 transition-all active:scale-95",
+      "secondary": "bg-white text-slate-900 border border-slate-200 hover:bg-slate-50 rounded-md h-10 px-4 py-2",
+      "destructive": "bg-white text-rose-600 border border-rose-200 hover:bg-rose-50 rounded-md h-10 px-4 py-2",
+      "ghost": "hover:bg-slate-100 text-slate-600 hover:text-slate-900 rounded-md"
+    },
+    "inputs": {
+      "default": "bg-white border border-slate-300 text-slate-900 rounded-md h-10 px-3 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all placeholder:text-slate-400",
+      "kiosk_large": "h-14 text-lg px-4 bg-slate-50 border-slate-200 focus:bg-white"
+    },
+    "cards": {
+      "dashboard": "bg-white border border-slate-200 rounded-lg p-6 flex flex-col gap-4",
+      "id_card": "relative overflow-hidden bg-white border border-slate-200 rounded-xl shadow-lg aspect-[1.586/1]"
+    },
+    "status_badges": {
+      "valid": "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800",
+      "invalid": "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800",
+      "pending": "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800"
+    }
+  },
+  "assets": {
+    "images": {
+      "login_bg": {
+        "url": "https://images.unsplash.com/photo-1765133469414-02f4e445df19?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBjb2xsZWdlJTIwY2FtcHVzJTIwc3R1ZGVudHMlMjB0ZWNobm9sb2d5fGVufDB8fHx8MTc3MDc1MDcyNXww&ixlib=rb-4.1.0&q=85",
+        "alt": "Modern college building exterior",
+        "usage": "Login page background with overlay (bg-slate-900/90)"
+      },
+      "student_hero": {
+        "url": "https://images.unsplash.com/photo-1758270704534-fd9715bffc0e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjb2xsZWdlJTIwY2FtcHVzJTIwc3R1ZGVudHMlMjB0ZWNobm9sb2d5fGVufDB8fHx8MTc3MDc1MDcyNXww&ixlib=rb-4.1.0&q=85",
+        "alt": "Students using technology",
+        "usage": "Student portal welcome banner"
+      },
+      "default_avatar": {
+        "url": "https://ui.shadcn.com/avatars/04.png",
+        "alt": "Default user avatar",
+        "usage": "Fallback for missing profile photos"
+      }
+    },
+    "icons": {
+      "library": "lucide-react",
+      "primary_set": ["ShieldCheck", "QrCode", "Users", "Calendar", "LogOut", "LayoutDashboard", "ScanLine", "School"]
+    }
+  },
+  "special_features": {
+    "camera_module": {
+      "instructions": "Use 'react-webcam'. Overlay a semi-transparent guide (border-2 border-dashed border-white/50 rounded-full) to help users position their face. Add a 3-second countdown before capture.",
+      "ui_style": "Full width video feed with 'Capture' button floating at bottom."
+    },
+    "qr_display": {
+      "instructions": "Use 'qrcode.react'. Display on a white square container with p-4 padding. Add 'Valid until: [Date]' text below in JetBrains Mono.",
+      "security_watermark": "Add a subtle PICT logo watermark behind the QR code."
+    }
+  },
+  "main_agent_instructions": {
+    "general": [
+      "Use 'sonner' for all success/error toasts.",
+      "Ensure all date inputs use the Shadcn 'Calendar' component (via Popover), NOT native date pickers.",
+      "For the Guard Scanner: Implement a 'Traffic Light' full-screen feedback system. Green screen = Valid, Red screen = Invalid/Expired.",
+      "Admin Dashboard charts: Use 'recharts'. Style them with 'stroke-slate-900' for lines and 'fill-blue-100' for areas.",
+      "Do NOT use 'Inter'. Use 'Public Sans' for body and 'Manrope' for headings."
+    ],
+    "file_structure_hints": {
+      "pages": "Place page components in /pages (e.g., /pages/admin/Dashboard.js)",
+      "components": "Place reusable UI in /components/ui",
+      "features": "Place feature-specific components in /components/features (e.g., /components/features/VisitorForm.js)"
+    },
+    "accessibility": [
+      "Ensure all inputs have associated labels.",
+      "Color contrast must be WCAG AA compliant (Slate-600 on Slate-50 is border-line, use Slate-700).",
+      "Keyboard navigation flow for the visitor kiosk must be linear and trap focus."
+    ]
+  }
+}

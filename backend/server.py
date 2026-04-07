@@ -248,8 +248,7 @@ async def generate_external_student_id(event_name: str, event_id: str) -> str:
     
     # Format: EventName_exe001
     return f"{sanitized_name}_exe{next_num:03d}"
-
-
+def generate_qr_code(token: str) -> str:
     """Generate QR code as base64 string"""
     qr = qrcode.QRCode(version=1, box_size=10, border=4)
     qr.add_data(token)
@@ -1437,7 +1436,7 @@ async def export_alumni_data(date_range: str = "all"):
             ws.cell(row=row_num, column=7, value=alum.get("secondary_phone", ""))
             ws.cell(row=row_num, column=8, value=alum.get("enrollment_number", ""))
             ws.cell(row=row_num, column=9, value=alum.get("degree", ""))
-            ws.cell(row=row_num, column=10, value=alum.get("department", ""))
+            ws.cell(row=row_num, column=10, value=alum.get("branch", ""))
             ws.cell(row=row_num, column=11, value=alum.get("sub_institute", ""))
             ws.cell(row=row_num, column=12, value=alum.get("year_of_joining", ""))
             ws.cell(row=row_num, column=13, value=alum.get("year_of_passing", ""))

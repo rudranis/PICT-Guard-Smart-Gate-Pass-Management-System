@@ -482,7 +482,7 @@ export default function UserPortal() {
                 </DialogTrigger>
                 <DialogContent className="max-w-2xl bg-white max-h-[90vh] overflow-y-auto">
                   <DialogHeader>
-                    <DialogTitle>Register Visitor (HR, Relative, Other Faculty, Student, etc.)</DialogTitle>
+                    <DialogTitle>Register Visitor (HR, Relative, Other Faculty,Exam Cordinator,External Examiner, Student, etc.)</DialogTitle>
                   </DialogHeader>
                   
                   {/* Registration Form */}
@@ -501,6 +501,8 @@ export default function UserPortal() {
                         <option value="HR">🏢 HR</option>
                         <option value="Relative">👨‍👩‍👧 Relative</option>
                         <option value="Other Faculty">👨‍🎓 Other Faculty</option>
+                        <option value="Exam Cordinator">👨‍🎓 Exam Cordinator</option>
+                        <option value="External Examiner">👨‍🎓 External Examiner</option>
                         <option value="Student">📚 Student</option>
                         <option value="Other">❓ Other</option>
                       </select>
@@ -852,6 +854,8 @@ export default function UserPortal() {
                           <option value="HR">🏢 HR</option>
                           <option value="Relative">👨‍👩‍👧 Relative</option>
                           <option value="Other Faculty">👨‍🎓 Other Faculty</option>
+                          <option value="Exam Cordinator">👨‍🎓 Exam Cordinator</option>
+                        <option value="External Examiner">👨‍🎓 External Examiner</option>
                           <option value="Student">📚 Student</option>
                           <option value="Other">❓ Other</option>
                         </select>
